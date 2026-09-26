@@ -1,252 +1,385 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Regime Severe</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Regime Severe</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f2f7f3;
-      color: #222;
-    }
+<style>
+body {
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f2f7f3;
+  color:#222;
+}
 
-    header {
-      background: #2e7d32;
-      color: white;
-      text-align: center;
-      padding: 25px 10px;
-    }
+header {
+  background:#2e7d32;
+  color:white;
+  text-align:center;
+  padding:25px 10px;
+}
 
-    header h1 {
-      margin: 0;
-      font-size: 30px;
-    }
+.container {
+  max-width:700px;
+  margin:auto;
+  padding:20px;
+}
 
-    header p {
-      margin: 8px 0 0;
-    }
+.card {
+  background:white;
+  padding:20px;
+  margin-bottom:18px;
+  border-radius:18px;
+  box-shadow:0 4px 12px rgba(0,0,0,.08);
+}
 
-    .container {
-      max-width: 700px;
-      margin: auto;
-      padding: 20px;
-    }
+.meal {
+  background:#f8fff8;
+  border-right:5px solid #66bb6a;
+  padding:15px;
+  margin:12px 0;
+  border-radius:12px;
+}
 
-    .card {
-      background: white;
-      padding: 20px;
-      margin-bottom: 18px;
-      border-radius: 18px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    }
+.water {
+  background:#e3f2fd;
+  border-right:5px solid #2196f3;
+}
 
-    .meal {
-      background: #f8fff8;
-      border-right: 5px solid #66bb6a;
-      padding: 15px;
-      margin: 12px 0;
-      border-radius: 12px;
-    }
+.activity {
+  background:#fff8e1;
+  border-right:5px solid #ffb300;
+}
 
-    .meal h3 {
-      margin-top: 0;
-      color: #388e3c;
-    }
+button {
+  width:100%;
+  padding:15px;
+  border:0;
+  border-radius:12px;
+  background:#2e7d32;
+  color:white;
+  font-size:18px;
+  margin-top:10px;
+}
 
-    button {
-      width: 100%;
-      padding: 15px;
-      border: none;
-      border-radius: 12px;
-      background: #2e7d32;
-      color: white;
-      font-size: 18px;
-      margin-top: 10px;
-    }
+.hidden {
+  display:none;
+}
 
-    .hidden {
-      display: none;
-    }
+#waterCount {
+  font-size:24px;
+  font-weight:bold;
+}
 
-    footer {
-      text-align: center;
-      padding: 20px;
-      color: #666;
-    }
-  </style>
+footer {
+  text-align:center;
+  padding:20px;
+  color:#666;
+}
+</style>
 </head>
 
 <body>
 
 <header>
-  <h1>🥗 Regime Severe</h1>
-  <p>غذاء متوازن لصحة أفضل</p>
+<h1>🥗 Regime Severe</h1>
+<p>غذاء متوازن وصحة أفضل</p>
 </header>
 
 <div class="container">
 
-  <section id="home">
+<section id="home">
 
-    <div class="card">
-      <h2>👋 مرحباً بك!</h2>
-      <p>كل نهار غادي تلقى اقتراحات مختلفة ومتوازنة للوجبات.</p>
+<div class="card">
+<h2>👋 مرحباً بك!</h2>
+<p id="today"></p>
 
-      <button onclick="showMeals()">
-        🍽️ شوف وجبات اليوم
-      </button>
-    </div>
+<button onclick="showMeals()">
+🍽️ وجبات اليوم
+</button>
+</div>
 
-    <div class="card">
-      <h2>💧 الماء</h2>
-      <p>حاول تشرب الماء بانتظام خلال اليوم.</p>
-    </div>
+<div class="card water">
+<h2>💧 الماء</h2>
 
-    <div class="card">
-      <h2>🏃 النشاط</h2>
-      <p>الحركة اليومية والأنشطة اللي كتحب تساعدك تحافظ على صحة جيدة.</p>
-    </div>
+<p>سجّل كل مرة تشرب فيها الماء.</p>
 
-  </section>
+<p>
+عدد المرات اليوم:
+<strong id="waterCount">0</strong>
+</p>
 
-  <section id="meals" class="hidden">
+<button onclick="drinkWater()">
+💧 شربت الماء
+</button>
 
-    <div class="card">
+<button onclick="resetWater()">
+🔄 تصفير العداد
+</button>
+</div>
 
-      <h2>🍽️ وجبات اليوم</h2>
+<div class="card activity">
+<h2>🏃 نشاط اليوم</h2>
 
-      <p id="day"></p>
+<p id="activityText"></p>
+</div>
 
-      <div class="meal">
-        <h3>🌅 الفطور</h3>
-        <p id="breakfast"></p>
-      </div>
+</section>
 
-      <div class="meal">
-        <h3>☀️ الغداء</h3>
-        <p id="lunch"></p>
-      </div>
 
-      <div class="meal">
-        <h3>🍎 وجبة خفيفة</h3>
-        <p id="snack"></p>
-      </div>
+<section id="meals" class="hidden">
 
-      <div class="meal">
-        <h3>🌙 العشاء</h3>
-        <p id="dinner"></p>
-      </div>
+<div class="card">
 
-      <button onclick="showMeals()">
-        🔄 اقتراح آخر
-      </button>
+<h2>🍽️ وجبات اليوم</h2>
 
-      <button onclick="goHome()">
-        ⬅️ رجوع
-      </button>
+<div class="meal">
+<h3>🌅 الفطور</h3>
+<p id="breakfast"></p>
+</div>
 
-    </div>
+<div class="meal">
+<h3>☀️ الغداء</h3>
+<p id="lunch"></p>
+</div>
 
-  </section>
+<div class="meal">
+<h3>🍎 وجبة خفيفة</h3>
+<p id="snack"></p>
+</div>
+
+<div class="meal">
+<h3>🌙 العشاء</h3>
+<p id="dinner"></p>
+</div>
+
+<button onclick="goHome()">
+⬅️ رجوع
+</button>
+
+</div>
+
+</section>
 
 </div>
 
 <footer>
-  🥗 Regime Severe © 2026
+🥗 Regime Severe © 2026
 </footer>
+
 
 <script>
 
+/* ===== الوجبات ===== */
+
 const meals = [
 
-  {
-    breakfast: "🥚 بيض + 🍞 خبز كامل الحبوب + 🍎 فاكهة + 🥛 ياغورت",
-    lunch: "🍗 دجاج + 🍚 أرز + 🥦 خضر متنوعة",
-    snack: "🍌 موزة + 🥛 ياغورت",
-    dinner: "🥗 سلطة + 🥚 بيض + 🍞 خبز كامل الحبوب"
-  },
+{
+breakfast:"🥚 بيض + 🍞 خبز كامل الحبوب + 🍎 فاكهة",
+lunch:"🍗 دجاج + 🍚 أرز + 🥦 خضر",
+snack:"🍌 موز + 🥛 ياغورت",
+dinner:"🥗 سلطة + 🥚 بيض + 🍞 خبز كامل الحبوب"
+},
 
-  {
-    breakfast: "🥣 شوفان بالحليب + 🍌 موز + 🥜 بعض المكسرات",
-    lunch: "🐟 سمك + 🥔 بطاطس + 🥗 سلطة",
-    snack: "🍎 تفاحة + 🥛 ياغورت",
-    dinner: "🫘 فاصوليا + 🥗 خضر + 🍞 خبز كامل الحبوب"
-  },
+{
+breakfast:"🥣 شوفان بالحليب + 🍌 موز + 🥜 مكسرات",
+lunch:"🐟 سمك + 🥔 بطاطس + 🥗 سلطة",
+snack:"🍎 تفاحة + 🥛 ياغورت",
+dinner:"🫘 فاصوليا + 🥗 خضر + 🍞 خبز"
+},
 
-  {
-    breakfast: "🍞 خبز كامل الحبوب + 🧀 جبن + 🍊 برتقالة + 🥛 حليب",
-    lunch: "🍗 دجاج + 🍝 معكرونة + 🥦 خضر",
-    snack: "🍐 إجاصة + 🥜 بعض المكسرات",
-    dinner: "🥚 أومليط بالخضر + 🥗 سلطة"
-  },
+{
+breakfast:"🍞 خبز كامل الحبوب + 🧀 جبن + 🍊 برتقالة",
+lunch:"🍗 دجاج + 🍝 معكرونة + 🥦 خضر",
+snack:"🍐 إجاصة + 🥜 مكسرات",
+dinner:"🍳 أومليط بالخضر + 🥗 سلطة"
+},
 
-  {
-    breakfast: "🥚 بيض + 🍞 خبز كامل الحبوب + 🍓 فواكه + 🥛 حليب",
-    lunch: "🐟 سمك + 🍚 أرز + 🥗 سلطة",
-    snack: "🍌 موز + 🥛 ياغورت",
-    dinner: "🫘 عدس + 🥗 خضر + 🍞 خبز"
-  },
+{
+breakfast:"🥚 بيض + 🍞 خبز كامل الحبوب + 🍓 فواكه",
+lunch:"🐟 سمك + 🍚 أرز + 🥗 سلطة",
+snack:"🍌 موز + 🥛 ياغورت",
+dinner:"🫘 عدس + 🥗 خضر + 🍞 خبز"
+},
 
-  {
-    breakfast: "🥣 شوفان + 🍎 تفاحة + 🥛 حليب",
-    lunch: "🍗 دجاج + 🥔 بطاطس + 🥕 خضر",
-    snack: "🍊 برتقالة + 🥛 ياغورت",
-    dinner: "🥗 سلطة + 🫘 حمص + 🍞 خبز كامل الحبوب"
-  },
+{
+breakfast:"🥣 شوفان + 🍎 تفاحة + 🥛 حليب",
+lunch:"🍗 دجاج + 🥔 بطاطس + 🥕 خضر",
+snack:"🍊 برتقالة + 🥛 ياغورت",
+dinner:"🥗 سلطة + 🫘 حمص + 🍞 خبز"
+},
 
-  {
-    breakfast: "🍞 خبز كامل الحبوب + 🥚 بيض + 🍌 موزة + 🥛 حليب",
-    lunch: "🐟 سمك + 🍚 أرز + 🥦 بروكولي وخضر",
-    snack: "🍎 تفاحة + 🥜 بعض المكسرات",
-    dinner: "🍳 أومليط بالخضر + 🥗 سلطة"
-  },
+{
+breakfast:"🍞 خبز كامل الحبوب + 🥚 بيض + 🍌 موز",
+lunch:"🐟 سمك + 🍚 أرز + 🥦 خضر",
+snack:"🍎 تفاحة + 🥜 مكسرات",
+dinner:"🍳 أومليط بالخضر + 🥗 سلطة"
+},
 
-  {
-    breakfast: "🥣 شوفان بالحليب + 🍓 فواكه + 🥜 مكسرات",
-    lunch: "🍗 دجاج + 🍝 معكرونة + 🥗 سلطة",
-    snack: "🍐 إجاصة + 🥛 ياغورت",
-    dinner: "🫘 عدس + 🥗 خضر + 🍞 خبز كامل الحبوب"
-  }
+{
+breakfast:"🥣 شوفان بالحليب + 🍓 فواكه",
+lunch:"🍗 دجاج + 🍝 معكرونة + 🥗 سلطة",
+snack:"🍐 إجاصة + 🥛 ياغورت",
+dinner:"🫘 عدس + 🥗 خضر + 🍞 خبز"
+}
 
 ];
 
+
+/* ===== النشاط ===== */
+
+const activities = [
+
+"🚶 نزهة أو مشي خفيف.",
+
+"⚽ لعب كرة القدم مع الأصدقاء.",
+
+"🚲 ركوب الدراجة في مكان آمن.",
+
+"🏀 لعب كرة السلة.",
+
+"🎵 الرقص والحركة على موسيقى كتفضلها.",
+
+"🏃 حركة خفيفة في الخارج أو داخل المنزل.",
+
+"🧹 مساعدة في بعض الأعمال المنزلية."
+
+];
+
+
+/* ===== حساب اليوم ===== */
+
+const today = new Date();
+
+const dayNumber = today.getDay();
+
+
+/* ===== اسم اليوم ===== */
+
+const dayNames = [
+
+"الأحد",
+"الاثنين",
+"الثلاثاء",
+"الأربعاء",
+"الخميس",
+"الجمعة",
+"السبت"
+
+];
+
+document.getElementById("today").innerText =
+"📅 اليوم: " + dayNames[dayNumber];
+
+
+/* ===== النشاط ديال اليوم ===== */
+
+document.getElementById("activityText").innerText =
+activities[dayNumber];
+
+
+/* ===== الوجبات ديال اليوم ===== */
+
 function showMeals() {
 
-  const today = new Date();
-  const dayNumber = today.getDay();
+const meal = meals[dayNumber];
 
-  const meal = meals[dayNumber];
+document.getElementById("breakfast").innerText =
+meal.breakfast;
 
-  document.getElementById("day").innerText =
-    "📅 اقتراحات اليوم";
+document.getElementById("lunch").innerText =
+meal.lunch;
 
-  document.getElementById("breakfast").innerText =
-    meal.breakfast;
+document.getElementById("snack").innerText =
+meal.snack;
 
-  document.getElementById("lunch").innerText =
-    meal.lunch;
+document.getElementById("dinner").innerText =
+meal.dinner;
 
-  document.getElementById("snack").innerText =
-    meal.snack;
+document.getElementById("home").classList.add("hidden");
 
-  document.getElementById("dinner").innerText =
-    meal.dinner;
+document.getElementById("meals").classList.remove("hidden");
 
-  document.getElementById("home").classList.add("hidden");
-  document.getElementById("meals").classList.remove("hidden");
-
-  window.scrollTo(0, 0);
+window.scrollTo(0,0);
 }
+
+
+/* ===== الرجوع ===== */
 
 function goHome() {
 
-  document.getElementById("meals").classList.add("hidden");
-  document.getElementById("home").classList.remove("hidden");
+document.getElementById("meals").classList.add("hidden");
 
-  window.scrollTo(0, 0);
+document.getElementById("home").classList.remove("hidden");
+
+}
+
+
+/* ===== الماء ===== */
+
+/* كل نهار عندو عداد خاص به */
+
+const savedDay =
+localStorage.getItem("waterDay");
+
+const currentDay =
+today.toDateString();
+
+let waterCount = 0;
+
+if(savedDay === currentDay) {
+
+waterCount =
+parseInt(localStorage.getItem("waterCount")) || 0;
+
+} else {
+
+waterCount = 0;
+
+localStorage.setItem("waterDay",currentDay);
+
+localStorage.setItem("waterCount","0");
+
+}
+
+
+document.getElementById("waterCount").innerText =
+waterCount;
+
+
+function drinkWater() {
+
+waterCount++;
+
+localStorage.setItem(
+"waterCount",
+waterCount
+);
+
+localStorage.setItem(
+"waterDay",
+currentDay
+);
+
+document.getElementById("waterCount").innerText =
+waterCount;
+
+}
+
+
+function resetWater() {
+
+waterCount = 0;
+
+localStorage.setItem(
+"waterCount",
+"0"
+);
+
+document.getElementById("waterCount").innerText =
+"0";
+
 }
 
 </script>
