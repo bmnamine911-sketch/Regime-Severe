@@ -1,110 +1,199 @@
-<div class="card water">
-<h2>💧 الماء</h2>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Regime Severe</title>
 
-<p>سجّل كل مرة تشرب فيها الماء.</p>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f2f7f3;
+      color: #222;
+    }
 
-<p>
-عدد المرات اليوم:
-<strong id="waterCount">0</strong>
-</p>
+    header {
+      background: #2e7d32;
+      color: white;
+      text-align: center;
+      padding: 25px 10px;
+    }
 
-<button onclick="drinkWater()">
-💧 شربت الماء
-</button>
+    header h1 {
+      margin: 0;
+      font-size: 30px;
+    }
 
-<button onclick="resetWater()">
-🔄 تصفير العداد
-</button>
-</div>
+    header p {
+      margin: 8px 0 0;
+      font-size: 16px;
+    }
 
-<div class="card activity">
-<h2>🏃 نشاط اليوم</h2>
+    .container {
+      max-width: 700px;
+      margin: auto;
+      padding: 20px;
+    }
 
-<p id="activityText"></p>
-</div>
+    .card {
+      background: white;
+      padding: 20px;
+      margin-bottom: 18px;
+      border-radius: 18px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
 
-</section>
+    .card h2 {
+      color: #2e7d32;
+      margin-top: 0;
+    }
 
+    button {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 12px;
+      background: #2e7d32;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
 
-<section id="meals" class="hidden">
+    button:hover {
+      background: #256628;
+    }
 
-<div class="card">
+    .meal {
+      border-right: 5px solid #66bb6a;
+      background: #f8fff8;
+      padding: 15px;
+      margin: 12px 0;
+      border-radius: 12px;
+    }
 
-<h2>🍽️ وجبات اليوم</h2>
+    .meal h3 {
+      margin-top: 0;
+      color: #388e3c;
+    }
 
-<div class="meal">
-<h3>🌅 الفطور</h3>
-<p id="breakfast"></p>
-</div>
+    .hidden {
+      display: none;
+    }
 
-<div class="meal">
-<h3>☀️ الغداء</h3>
-<p id="lunch"></p>
-</div>
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #666;
+      font-size: 14px;
+    }
+  </style>
+</head>
 
-<div class="meal">
-<h3>🍎 وجبة خفيفة</h3>
-<p id="snack"></p>
-</div>
+<body>
 
-<div class="meal">
-<h3>🌙 العشاء</h3>
-<p id="dinner"></p>
-</div>
+  <header>
+    <h1>🥗 Regime Severe</h1>
+    <p>غذاء متوازن لصحة أفضل</p>
+  </header>
 
-<button onclick="goHome()">
-⬅️ رجوع
-</button>
+  <div class="container">
 
-</div>
+    <!-- الصفحة الرئيسية -->
+    <section id="home">
 
-</section>
+      <div class="card">
+        <h2>👋 مرحباً بك!</h2>
+        <p>
+          مرحباً بك في تطبيق Regime Severe.
+          هنا غادي تلقى أفكار بسيطة ومتوازنة للوجبات والعادات الصحية.
+        </p>
 
-</div>
+        <button onclick="showPage('meals')">
+          🍽️ عرض الوجبات
+        </button>
+      </div>
 
-<footer>
-🥗 Regime Severe © 2026
-</footer>
+      <div class="card">
+        <h2>💧 الماء</h2>
+        <p>
+          حاول تشرب الماء بانتظام خلال اليوم، خصوصاً مع النشاط والحرارة.
+        </p>
+      </div>
 
+      <div class="card">
+        <h2>🏃 النشاط</h2>
+        <p>
+          الحركة والنشاط اليومي كيساعدو الجسم يبقى بصحة جيدة.
+        </p>
+      </div>
 
-<script>
+    </section>
 
-/* ===== الوجبات ===== */
+    <!-- صفحة الوجبات -->
+    <section id="meals" class="hidden">
 
-const meals = [
+      <div class="card">
+        <h2>🍽️ وجبات متوازنة</h2>
 
-{
-breakfast:"🥚 بيض + 🍞 خبز كامل الحبوب + 🍎 فاكهة",
-lunch:"🍗 دجاج + 🍚 أرز + 🥦 خضر",
-snack:"🍌 موز + 🥛 ياغورت",
-dinner:"🥗 سلطة + 🥚 بيض + 🍞 خبز كامل الحبوب"
-},
+        <div class="meal">
+          <h3>🌅 الفطور</h3>
+          <p>
+            🥚 البيض + 🍞 خبز كامل الحبوب + 🍎 فاكهة +
+            🥛 حليب أو ياغورت.
+          </p>
+        </div>
 
-{
-breakfast:"🥣 شوفان بالحليب + 🍌 موز + 🥜 مكسرات",
-lunch:"🐟 سمك + 🥔 بطاطس + 🥗 سلطة",
-snack:"🍎 تفاحة + 🥛 ياغورت",
-dinner:"🫘 فاصوليا + 🥗 خضر + 🍞 خبز"
-},
+        <div class="meal">
+          <h3>☀️ الغداء</h3>
+          <p>
+            🍗 دجاج أو 🐟 سمك + 🍚 أرز أو 🥔 بطاطس +
+            🥦 خضر متنوعة.
+          </p>
+        </div>
 
-{
-breakfast:"🍞 خبز كامل الحبوب + 🧀 جبن + 🍊 برتقالة",
-lunch:"🍗 دجاج + 🍝 معكرونة + 🥦 خضر",
-snack:"🍐 إجاصة + 🥜 مكسرات",
-dinner:"🍳 أومليط بالخضر + 🥗 سلطة"
-},
+        <div class="meal">
+          <h3>🍎 وجبة خفيفة</h3>
+          <p>
+            🍌 فاكهة + 🥛 ياغورت، أو حفنة صغيرة من المكسرات.
+          </p>
+        </div>
 
-{
-breakfast:"🥚 بيض + 🍞 خبز كامل الحبوب + 🍓 فواكه",
-lunch:"🐟 سمك + 🍚 أرز + 🥗 سلطة",
-snack:"🍌 موز + 🥛 ياغورت",
-dinner:"🫘 عدس + 🥗 خضر + 🍞 خبز"
-},
+        <div class="meal">
+          <h3>🌙 العشاء</h3>
+          <p>
+            🥗 سلطة أو خضر + 🥚 بيض أو 🫘 فاصوليا +
+            🍞 خبز كامل الحبوب.
+          </p>
+        </div>
 
-{
-breakfast:"🥣 شوفان + 🍎 تفاحة + 🥛 حليب",
-lunch:"🍗 دجاج + 🥔 بطاطس + 🥕 خضر",
-snack:"🍊 برتقالة + 🥛 ياغورت",
- 🍞 
+        <button onclick="showPage('home')">
+          ⬅️ رجوع
+        </button>
+
+      </div>
+
+    </section>
+
+  </div>
+
+  <footer>
+    🥗 Regime Severe © 2026
+  </footer>
+
+  <script>
+    function showPage(page) {
+      document.getElementById("home").classList.add("hidden");
+      document.getElementById("meals").classList.add("hidden");
+
+      document.getElementById(page).classList.remove("hidden");
+
+      window.scrollTo(0, 0);
+    }
+  </script>
+
+</body>
+</html>
 
 
